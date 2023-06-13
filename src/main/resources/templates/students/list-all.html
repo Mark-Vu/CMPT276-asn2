@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+        crossorigin="anonymous"/>
+</head>
+
+<body>
+  <div class="main-container">
+    <h1 class="title">Students</h1>
+    <table class="students-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Weight (kg)</th>
+          <th>Height (cm)</th>
+          <th>Hair Color</th>
+          <th>GPA</th>
+          <th class="delete-col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="student : ${st}">
+          <td th:text="${student.name}"></td>
+          <td th:text="${student.weight}"></td>
+          <td th:text="${student.height}"></td>
+          <td th:text="${student.hairColor}" class="hair-color-cell"></td>
+          <td th:text="${student.gpa}"></td>
+          <td class="action-col">
+              <a th:href="@{|/student/${student.sid}}" class="btn btn-primary">Edit</a>
+            
+              <button class="btn btn-danger" th:onclick="deleteStudent([[${student.sid}]])">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <form action="/students/add" method="post" id="add-student-form">
+            <td>
+              <input type="text" name="name" required />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="weight"
+                placeholder="Weight in kg"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                name="height"
+                placeholder="Height in cm"
+                required
+              />
+            </td>
+            <td>
+              <select name="hair-color" id="hair-color-select" required>
+                <option value="">Choose a hair color</option>
+                <option value="Black">Black</option>
+                <option value="Brown">Brown</option>
+                <option value="Blonde">Blonde</option>
+                <option value="Red">Red</option>
+                <option value="Green">Green</option>
+                <option value="Blue">Blue</option>
+                <option value="Other">Other</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" name="gpa" step="0.01" required />
+            </td>
+            <td class="action-col">
+              <button type="submit" class="btn btn-success" id="add-btn">Add</button>
+            </td>
+          </form>
+        </tr>
+      </tbody>
+    </table>
+    <section id="section07" class="demo">
+      <a href="#students"><span></span><span></span><span></span>Scroll</a>
+    </section>
+  </div>
+  <div class="student-boxes" id="students">
+    <a th:each="student : ${st}" 
+       th:href="@{|/student/${student.sid}}"
+       class="student-box"
+       th:style="'width:' + ${student.weight} + 'px;
+        height:' + ${student.height} + 'px;
+        background-color: ' + (${student.hairColor} == 'Blonde' ? '#dfc393' : ${student.hairColor}) + ';'">
+      <p th:text="${student.name}"></p>
+      <p th:text="${student.gpa}"></p>
+    </div>
+    </a>
+  </div>
+  
+
+</div>
+
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>
