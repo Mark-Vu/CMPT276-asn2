@@ -1,4 +1,5 @@
 function deleteStudent(sid) {
+  //Check if user want to delete a student, if yes then send request to the backend
   if (confirm("Are you sure you want to delete this student?")) {
       $.ajax({
           type: 'POST',
@@ -8,13 +9,5 @@ function deleteStudent(sid) {
             location.reload();
           }
       });
-  }
-}
-function getColorCode(hairColor) {
-  switch (hairColor) {
-    case 'Blonde':
-      return 'yellow';
-    default:
-      return hairColor;
   }
 }

@@ -111,7 +111,9 @@
     text-align: center;
     text-decoration: none;
 }
-
+.student-box:hover {
+    filter: brightness(130%);
+}
 section {
     position:absolute;
     bottom: 0;
